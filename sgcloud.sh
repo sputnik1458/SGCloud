@@ -3,7 +3,7 @@
 CONFIG_DIR=".sgcloud"
 
 if [ ! -d ~/$CONFIG_DIR ]; then
-    ./clientsetup.sh
+    ./setup.sh
 fi
 
 #cd ~/$CONFIG_DIR/scripts
