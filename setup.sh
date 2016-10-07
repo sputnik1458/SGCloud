@@ -44,8 +44,6 @@ add_config 2 $USER
 
 cd $DIR
 
-cp pull.sh ~/$CONFIG_DIR/scripts
-cp push.sh ~/$CONFIG_DIR/scripts
 cp sgcloud.sh ~/$CONFIG_DIR/scripts
 cp sync.sh ~/$CONFIG_DIR/scripts
 
