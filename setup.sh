@@ -46,6 +46,7 @@ cd $DIR
 
 cp sgcloud.sh ~/$CONFIG_DIR/scripts
 cp sync.sh ~/$CONFIG_DIR/scripts
+cp setup.sh ~/$CONFIG_DIR/scripts
 
 cd ~
 
