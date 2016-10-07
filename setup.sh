@@ -31,7 +31,7 @@ function add_dir {
 
 function add_config {
     
-    echo ${CONFIG[$1]}=$2 >> ~/.sshcloud/config
+    echo ${CONFIG[$1]}=$2 >> ~/$CONFIG_DIR/config
 
 }
 
