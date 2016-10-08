@@ -12,3 +12,4 @@ fi
 #./push.sh </dev/null &>/dev/null &
 #echo done
 ./sync.sh </dev/null &>/dev/null &
+echo "Sync started"

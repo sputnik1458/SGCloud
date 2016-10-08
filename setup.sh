@@ -1,15 +1,56 @@
 #!/usr/bin/env bash
 
-ROOT_DIR="SGCloud" 
 CONFIG_DIR=".sgcloud"
 DIR=$PWD
-CONFIG=("IP" "PORT" "USER")
+CONFIG=("IP" "PORT" "USER" "INT" "ROOT_DIR")
 
 echo "Before setting up SGCloud, make sure that you have installed SSH on your server and configured port forwarding on its router."
 
 read -p "Enter the IP or hostname of your remote server: " IP
-read -p "Enter the listening port of your remote server: " PORT
+read -p "Enter the listening port of your remote server[22]: " PORT
 read -p "Enter the user you wish to login as: " USER
+read -p 'Enter the interval (in seconds) to sync the directories[30]: ' INT
+read -p "Enter the absolute path of the directory to sync[/home/user/SGCloud]: " ROOT_DIR
+
+PORT=${PORT:-22}
+INT=${INT:-30}
+ROOT_DIR=${ROOT_DIR:-SGCloud}
+
+function add_dir {
+
+    if [ ! -d "$1" ]; then
+        mkdir "$1"
+        echo "Created $1 in home directory."
+    fi
+}
+
+add_dir $CONFIG_DIR
+add_dir $CONFIG_DIR/scripts
+add_dir .ssh
+
+function add_config {
+    
+    echo ${CONFIG[$1]}=$2 >> ~/$CONFIG_DIR/config
+
+}
+
+chmod 700 .ssh && cd .ssh
+
+echo "Looking for SSH keys..."
+
+if [ ! -e id_rsa ]; then
+    echo "SSH keys not found. Creating..."
+    ssh-keygen -t rsa
+    echo "SSH keys created"
+    ssh-copy-id -p 31458 $USER@$IP
+    echo "SSH keys sent to remote server"
+else
+    echo "SSH keys found"
+fi
+
+cd ~
+
+
 
 echo "Testing SSH connection..."
 {
@@ -21,26 +62,11 @@ echo "Testing SSH connection..."
 
 cd ~
 
-function add_dir {
-
-    if [ ! -d "$1" ]; then
-        mkdir "$1"
-        echo "Created $1 in home directory."
-    fi
-}
-
-function add_config {
-    
-    echo ${CONFIG[$1]}=$2 >> ~/$CONFIG_DIR/config
-
-}
-
-add_dir $CONFIG_DIR
-add_dir $CONFIG_DIR/scripts
-
 add_config 0 $IP
 add_config 1 $PORT
 add_config 2 $USER
+add_config 3 $INT
+add_config 4 $ROOT_DIR  
 
 cd $DIR
 
