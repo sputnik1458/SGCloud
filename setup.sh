@@ -24,6 +24,8 @@ function add_dir {
     fi
 }
 
+cd ~
+
 add_dir $CONFIG_DIR
 add_dir $CONFIG_DIR/scripts
 add_dir .ssh
@@ -48,8 +50,6 @@ else
     echo "SSH keys found"
 fi
 
-cd ~
-
 
 
 echo "Testing SSH connection..."
@@ -60,7 +60,6 @@ echo "Testing SSH connection..."
     exit
 }
 
-cd ~
 
 add_config 0 $IP
 add_config 1 $PORT
