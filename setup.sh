@@ -103,3 +103,4 @@ if [ "$C" -eq "Y" ] || [ "$C" -eq "y" ]; then
     echo "@reboot /home/$USER/$CONFIG_DIR/scripts/sync.sh"
     crontab tmpcron
     rm tmpcron
+fi
