@@ -98,9 +98,8 @@ fi
 
 echo "Git sucessfully configured"
 
-if [ "$C" == "Y" ] || [ "$C" == "y" ]; then
+if [ "$C" -eq "Y" ] || [ "$C" -eq "y" ]; then
     crontab -l > tmpcron
-    echo "@reboot /home/$USER/$CONFIG_DIR/scripts/sync.sh"
+    echo "@reboot /home/$USER/$CONFIG_DIR/scripts/sync.sh" > tmpcron
     crontab tmpcron
     rm tmpcron
-fi

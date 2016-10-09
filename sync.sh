@@ -1,7 +1,8 @@
 #!/bin/bash
 
 source ~/.sgcloud/config
-cd ~/SGCloud
+cd ~
+cd $ROOT_DIR
 
 while [ true ]; do
     git pull origin master
